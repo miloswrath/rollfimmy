@@ -93,7 +93,7 @@ export default {
   }
 
   .v-timeline__image img {
-    width: 75%; /* Ensures the image takes up the full width of its container */
+    width: 75%; /* Ensures the image takes up 75% oih the full width of its container */
     height: auto; /* Keeps the aspect ratio of the image */
     display: block;
   }
