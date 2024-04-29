@@ -11,6 +11,7 @@ export default {
             // Add filtering logic
         }
     }
+    
 }
 </script>
 
