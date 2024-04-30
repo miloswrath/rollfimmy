@@ -1,16 +1,15 @@
 // filters.js
 
-// Filters by year ascending first
-export function initialFilter(data) {
-    return data.sort((a, b) => parseInt(a.Released_Year) - parseInt(b.Released_Year));
+//filters by year ascending first.
+export function initalFilter(data) {
+    return data.sort((a, b) => a.Released_Year - b.Released_Year);
 }
-
 export function filterByYear(data, year) {
-    return data.filter(item => parseInt(item.Released_Year) === parseInt(year));
+    return data.filter(item => item.Released_Year === year);
 }
 
 export function filterByYears(data, startYear, endYear) {
-    return data.filter(item => parseInt(item.Released_Year) >= parseInt(startYear) && parseInt(item.Released_Year) <= parseInt(endYear));
+    return data.filter(item => item.Released_Year >= startYear && item.Released_Year <= endYear);
 }
 
 export function filterByGenre(data, genre) {
@@ -22,7 +21,7 @@ export function filterByGenres(data, genres) {
 }
 
 export function filterByRating(data, rating) {
-    return data.filter(item => Math.abs(parseFloat(item.IMDB_Rating) - parseFloat(rating)) < 0.01);
+    return data.filter(item => parseFloat(item.IMDB_Rating) === parseFloat(rating));
 }
 
 export function filterByRatings(data, ratingStart, ratingEnd) {
