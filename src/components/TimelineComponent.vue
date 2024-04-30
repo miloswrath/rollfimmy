@@ -48,12 +48,15 @@
   </div>
 </template>
 <script>
+import { initializeVTimelines } from '/src/VTimeline.js';
+import Util from '/src/Util.js';
 export default {
+  name: 'TimelineComponent',
   props: {
     filteredData: Array, // Expect an array of objects containing the necessary properties
   },
   mounted() {
-    console.log('TimelineComponent received data:', this.filteredData);
+    initializeVTimelines();
   },
   watch: {
     filteredData(newVal, oldVal) {

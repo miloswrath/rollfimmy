@@ -1,4 +1,7 @@
 // VTimeline.js
+
+
+import Util from './Util.js';
 export default class VTimeline {
   constructor(element) {
     this.element = element;
