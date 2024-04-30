@@ -3,7 +3,7 @@
     <button @click="toggleFilters">Filters</button>
     <div v-if="showFilters">
       <div>
-        <label>Filter by Year:</label>
+        <label>Filter by Year: {{ selectedYear }}</label>
         <input type="range" min="1920" max="2020" v-model="selectedYear">
       </div>
       <div>
@@ -16,13 +16,11 @@
     </div>
     <div>
       <ul>
-        <li v-for="(movie, index) in filteredMovies" :key="index">{{ movie.title }} - {{ movie.year }} - {{ movie.genre
-          }}</li>
+        <li v-for="(movie, index) in movies" :key="index">{{ movie.title }} - {{ movie.year }} - {{ movie.genre }}</li>
       </ul>
     </div>
   </div>
 </template>
-
 <script>
 import axios from 'axios';
 import { filterByYear, filterByGenres } from '../filters.js';
@@ -47,7 +45,7 @@ export default {
     },
     async loadMovies() {
       try {
-        const response = await axios.get('/path/to/your/data.json');
+        const response = await axios.get('/data.json');
         this.movies = response.data || []; // Ensure it's always an array
         this.applyFilters(); // Apply filters when movies are loaded
       } catch (error) {

@@ -13,12 +13,10 @@
 <script>
 import axios from 'axios';
 import { initialFilter } from '../filters.js'; // Import the initialFilter function
-import FilterComponent from '/src/components/Filters.vue';
 import TimelineComponent from '/src/components/TimelineComponent.vue';
 
 export default {
   components: {
-    FilterComponent,
     TimelineComponent
   },
   data() {
@@ -28,22 +26,9 @@ export default {
     };
   },
   mounted() {
-    this.loadInitialData();
+    this.loadMovies();
   },
   methods: {
-    async loadInitialData() {
-      try {
-        const response = await axios.get('/data.json');
-        console.log('Axios response:', response.data);  // This should log the actual data received
-        if (!Array.isArray(response.data)) {
-          throw new Error('Fetched data is not an array');
-        }
-        this.movies = response.data;
-        this.applyFilters();
-      } catch (error) {
-        console.error('Error loading movies:', error);
-      }
-    },
 
     handleFilteredData(data) {
       this.filteredData = data;  // Update filtered data upon filter application
