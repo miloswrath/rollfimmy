@@ -8,12 +8,12 @@
         <input
           type="range"
           min="1920"
-          max="2020"
+          max="1970"
           v-model.number="filterYearRange[0]"
         />
         <input
           type="range"
-          min="1920"
+          min="1971"
           max="2020"
           v-model.number="filterYearRange[1]"
         />
@@ -36,8 +36,7 @@
 
 <script>
 export default {
-  props: {
-  },
+  name: 'FilterComponent',
   data() {
     return {
       showFilters: false,

@@ -3,6 +3,7 @@
 import axios from "axios";
 import TimelineComponent from "/src/components/TimelineComponent.vue";
 import FilterComponent from "/src/components/Filters.vue";
+import { initializeVTimelines } from "/src/VTimeline.js";
 
 export default {
   components: {
@@ -22,12 +23,15 @@ export default {
   },
   mounted() {
     this.loadMovies();
+    initializeVTimelines();
   },
   methods: {
     async loadMovies() {
       try {
         const response = await axios.get("/data.json");
         this.filteredData = response.data || []; // Ensure it's always an array
+        // initally sort the data by year
+        this.filteredData.sort((a, b) => b.Released_Year - a.Released_Year);
         console.log("initialData set in App.vue:", this.filteredData);
       } catch (error) {
         console.error("Error loading movies in app.vue:", error);
@@ -129,7 +133,7 @@ export default {
 }
 
 .v-timeline__image img {
-  width: 75%;
+  width:95%;
   /* Ensures the image takes up 75% oih the full width of its container */
   height: auto;
   /* Keeps the aspect ratio of the image */
