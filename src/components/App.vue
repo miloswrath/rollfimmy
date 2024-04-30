@@ -34,15 +34,19 @@ export default {
     async loadInitialData() {
       try {
         const response = await axios.get('/data.json');
-        console.log(response.data);  // Check what the actual data looks like
-        this.initialData = initialFilter(response.data); 
-        this.filteredData = this.initialData; // Set filteredData to sorted data initially
+        console.log('Axios response:', response.data);  // This should log the actual data received
+        if (!Array.isArray(response.data)) {
+          throw new Error('Fetched data is not an array');
+        }
+        this.movies = response.data;
+        this.applyFilters();
       } catch (error) {
-        console.error("Failed to load and sort initial data:", error);
+        console.error('Error loading movies:', error);
       }
     },
+
     handleFilteredData(data) {
-    this.filteredData = data;  // Update filtered data upon filter application
+      this.filteredData = data;  // Update filtered data upon filter application
     }
 
   },
