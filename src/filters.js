@@ -1,29 +1,42 @@
 // filters.js
 
+// Filters by year ascending first
+export function initialFilter(data) {
+    return data.sort((a, b) => parseInt(a.Released_Year) - parseInt(b.Released_Year));
+}
+
 export function filterByYear(data, year) {
-    return data.filter(item => item.year === year);
+    return data.filter(item => parseInt(item.Released_Year) === parseInt(year));
 }
 
 export function filterByYears(data, startYear, endYear) {
-    return data.filter(item => item.year >= startYear && item.year <= endYear);
+    return data.filter(item => parseInt(item.Released_Year) >= parseInt(startYear) && parseInt(item.Released_Year) <= parseInt(endYear));
 }
 
-export function filterByCategory(data, category) {
-    return data.filter(item => item.category === category);
+export function filterByGenre(data, genre) {
+    return data.filter(item => item.Genre.toLowerCase().includes(genre.toLowerCase()));
 }
 
-export function filterByCategories(data, categories) {
-    return data.filter(item => categories.includes(item.category));
+export function filterByGenres(data, genres) {
+    return data.filter(item => genres.some(genre => item.Genre.toLowerCase().includes(genre.toLowerCase())));
 }
 
 export function filterByRating(data, rating) {
-    return data.filter(item => item.rating === rating);
+    return data.filter(item => Math.abs(parseFloat(item.IMDB_Rating) - parseFloat(rating)) < 0.01);
 }
 
 export function filterByRatings(data, ratingStart, ratingEnd) {
-    return data.filter(item => item.rating >= ratingStart && item.rating <= ratingEnd);
+    return data.filter(item => parseFloat(item.IMDB_Rating) >= parseFloat(ratingStart) && parseFloat(item.IMDB_Rating) <= parseFloat(ratingEnd));
+}
+
+export function filterByDirector(data, director) {
+    return data.filter(item => item.Director.toLowerCase().includes(director.toLowerCase()));
+}
+
+export function filterByStar(data, star) {
+    return data.filter(item => Object.values(item).slice(9, 13).map(value => value.toLowerCase()).includes(star.toLowerCase()));
 }
 
 export function filterBySearch(data, search) {
-    return data.filter(item => item.title.toLowerCase().includes(search.toLowerCase()));
+    return data.filter(item => item.Series_Title.toLowerCase().includes(search.toLowerCase()));
 }
