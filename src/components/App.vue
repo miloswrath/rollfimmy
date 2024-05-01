@@ -75,7 +75,7 @@ export default {
           );
         }
 
-        return result;
+        return filteredData = result;
       },
     },
     watch: {
@@ -132,7 +132,7 @@ export default {
         :initial-data="filteredData"
       ></filter-component>
 
-      <timeline-component v-if="filteredData && filteredData.length" :filtered-data="filteredDataComputed"></timeline-component>
+      <timeline-component v-if="filteredData && filteredData.length" :filtered-data="filteredData"></timeline-component>
     </div>
   </div>
 </template>
