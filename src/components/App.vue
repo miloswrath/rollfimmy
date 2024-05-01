@@ -142,27 +142,28 @@ export default {
 }
 header {
   display: flex;
-  align-items: center; /* This vertically centers the logo if the header is taller than the logo */
-  padding: 10px; /* Add padding around the content of the header */
+  align-items: center; /* Centers the logo vertically within the header */
+  padding: 10px; /* Adds padding around the header content */
 }
 
 .logo {
-  height: 50px; /* Or your desired size */
-  width: auto; /* Maintain aspect ratio */
-  margin-right: 20px; /* Space between logo and any other header content */
+  height: 50px; /* Adjust based on your design needs */
+  width: auto; /* Keeps the aspect ratio of the SVG */
 }
 </style>
 <template>
   <header>
-    <img src="./src/assets/looo.svg" alt="Logo" class="logo" />
+    <img src="/logoo.svg" alt="Logo" class="logo" />
+    <div class="vq4-margin-bottom-lg">
+      <h1 class="vq4-text-center">RollFilm</h1>
+    </div>
+
     <!-- Rest of your header or nav content -->
   </header>
   <div
     class="vq4-position-relative vq4-z-index-1 vq4-overflow-hidden vq4-padding-y-xl vq4-bg-dark"
   >
-    <div class="vq4-margin-bottom-lg">
-      <h1 class="vq4-text-center">RollFilm</h1>
-    </div>
+
     <div>
       <filter-component
         @update-filters="handleUpdateFilters"
