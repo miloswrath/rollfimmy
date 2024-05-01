@@ -45,8 +45,7 @@ export default {
       this.filterStars = criteria.filterStars;
       this.filterSearch = criteria.filterSearch;
     },
-    computed: {
-      filteredDataComputed() {
+    filteredDataComputed() {
         let result = this.filteredData;
 
         // Filter by year range
@@ -67,37 +66,6 @@ export default {
           );
         }
 
-        // Filter by ratings range
-        if (this.filterRatings[0] !== null && this.filterRatings[1] !== null) {
-          result = result.filter(
-            (item) =>
-              parseFloat(item.IMDB_Rating) >=
-                parseFloat(this.filterRatings[0]) &&
-              parseFloat(item.IMDB_Rating) <= parseFloat(this.filterRatings[1])
-          );
-        }
-
-        // Filter by directors
-        if (this.filterDirectors.length > 0) {
-          result = result.filter((item) =>
-            this.filterDirectors.some((director) =>
-              item.Director.toLowerCase().includes(director.toLowerCase())
-            )
-          );
-        }
-
-        // Filter by stars
-        if (this.filterStars.length > 0) {
-          result = result.filter((item) =>
-            this.filterStars.some((star) =>
-              Object.values(item)
-                .slice(9, 13)
-                .map((value) => value.toLowerCase())
-                .includes(star.toLowerCase())
-            )
-          );
-        }
-
         // Filter by search term
         if (this.filterSearch.trim() !== "") {
           result = result.filter((item) =>
@@ -110,7 +78,11 @@ export default {
         return result;
       },
     },
-  },
+    watch: {
+      filteredData(newVal, oldVal) {
+        console.log("App.vue filteredData changed:", newVal);
+      },
+    },
 };
 </script>
 
@@ -156,11 +128,11 @@ export default {
     </div>
     <div>
       <filter-component
-        @update-filters="handleUpdateFilters"
+        @update-filters="filteredDataComputed"
         :initial-data="filteredData"
       ></filter-component>
 
-      <timeline-component v-if="filteredData && filteredData.length" :filtered-data="filteredData"></timeline-component>
+      <timeline-component v-if="filteredData && filteredData.length" :filtered-data="filteredDataComputed"></timeline-component>
     </div>
   </div>
 </template>

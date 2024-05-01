@@ -51,6 +51,10 @@ export default {
     },
     applyFilters() {
       // Emit all filter criteria to the parent component
+      console.log("FilterComponent applyFilters:", {
+        filterGenres: this.filterGenres,
+        filterYearRange: this.filterYearRange,
+      });
       this.$emit("update-filters", {
         filterGenres: this.filterGenres,
         filterYearRange: this.filterYearRange,
