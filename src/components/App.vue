@@ -13,6 +13,7 @@ export default {
   data() {
     return {
       filteredData: [],
+      initialData: [],
       filterRatings: [null, null],
       filterDirectors: [],
       filterStars: [],
@@ -29,6 +30,7 @@ export default {
     async loadMovies() {
       try {
         const response = await axios.get("/data.json");
+        this.initialData = response.data || []; // Ensure it's always an array
         this.filteredData = response.data || []; // Ensure it's always an array
         // initally sort the data by year
         this.filteredData.sort((a, b) => b.Released_Year - a.Released_Year);
@@ -44,10 +46,13 @@ export default {
       this.filterDirectors = criteria.filterDirectors;
       this.filterStars = criteria.filterStars;
       this.filterSearch = criteria.filterSearch;
+      console.log("Received filter update:", criteria);
+      this.filteredDataComputed();
     },
     filteredDataComputed() {
         let result = this.filteredData;
-
+        console.log("Year range", this.filterYearRange);
+        console.log("Genres", this.filterGenres);
         // Filter by year range
         if (this.filterYearRange[0] && this.filterYearRange[1]) {
           result = result.filter(
@@ -66,16 +71,10 @@ export default {
           );
         }
 
-        // Filter by search term
-        if (this.filterSearch.trim() !== "") {
-          result = result.filter((item) =>
-            item.Series_Title.toLowerCase().includes(
-              this.filterSearch.toLowerCase()
-            )
-          );
-        }
-
-        return filteredData = result;
+      this.filteredData = result;
+      console.log("result from filteredDataComputed in App.vue:", result);
+      console.log("filteredData set in App.vue:", this.filteredData);
+      return this.filteredData;
       },
     },
     watch: {
@@ -128,7 +127,7 @@ export default {
     </div>
     <div>
       <filter-component
-        @update-filters="filteredDataComputed"
+        @update-filters="handleUpdateFilters"
         :initial-data="filteredData"
       ></filter-component>
 
